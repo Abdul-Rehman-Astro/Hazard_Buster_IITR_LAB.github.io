@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -91,3 +91,85 @@
   </script>
 </body>
 </html>
+
+
+
+ -->
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hazard_Buster_Lab_IITR</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+  <style>
+    #map {
+      width: 100%;
+      height: 2200px;
+    }
+
+    @media only screen and (max-width: 768px) {
+      #map {
+        height: 1500px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  <script>
+  // Define an array to store place names
+  var placeNames = [
+    "Bangalore, India",
+    "Mumbai, India",
+    "Chennai, India",
+    "Guwahati, India",
+    "Ajmer, India",
+    "Chandigarh, India",
+    "Kolkata, India",
+    "Kottayam, India",
+    "Shillong, India",
+    "Surat, India",
+    "Hyderabad, India",
+    "Jaipur, India",
+    "Delhi, India",
+    "Chennai, India", // Duplicate entry for testing
+    "Kolkata, India", // Duplicate entry for testing
+    "Noida, India",
+    "Hyderabad, India",
+    "Kochi, India",
+    "Bhubaneswar, India",
+    "Delhi, India", // Duplicate entry for testing
+    "Chandigarh, India", // Duplicate entry for testing
+    "Hyderabad, India"
+  ];
+
+  // Create a map centered at [0, 0]
+  var map = L.map('map').setView([0, 0], 2);
+
+  // Add a tile layer for the map background
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    maxZoom: 18,
+  }).addTo(map);
+
+  // Loop through the coordinates and add markers with popups
+  for (var i = 0; i < coordinates.length; i++) {
+    L.marker(coordinates[i])
+      .bindPopup(placeNames[i]) // Bind popup with corresponding place name
+      .addTo(map);
+  }
+  </script>
+</body>
+</html>
+
