@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
-
-
 <head>
   <meta charset="utf-8">
-  <title>Hazard_Buster_Lab_IITR</title>
-  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <title>Hazard_Buster_IITR</title>
+  <link rel="icon" type="image/x-icon" href="HB_LOGO.png">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
   <style>
@@ -15,14 +13,34 @@
     }
   </style>
 </head>
- 
 <body>
   <h1 style="font-weight: bold; text-align: center;">HAZARD BUSTERS, INDIAN INSTITUTE OF TECHNOLOGY</h1>
   <div id="map"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
   <script>
-    var coordinates = [
+  // Replace "landslide_symbol.png" and "flood_symbol.png" with actual image paths
+  var landslideIcon = L.icon({
+    iconUrl: 'Landslide_icon.png',
+    iconSize: [60, 50],
+    iconAnchor: [10, 10]
+  });
+
+  var floodIcon = L.icon({
+    iconUrl: 'Flood_icon.png',
+    iconSize: [50, 50],
+    iconAnchor: [10, 10]
+  });
+
+  // Initialize the map once
+  var map = L.map('map').setView([0, 0], 4);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  // Add flood markers
+  var floodLocations = [
       [30.3757, 68.1772],
       [23.6849, 90.3563],
       [-29.8570, 30.9862],
@@ -38,9 +56,10 @@
       [-34.8577, -56.1645],
       [-0.0736, 37.9062],
       [-18.6696, 35.5273]
-    ];
+  ];
 
-    var placeNames = [
+
+  var placeNames = [
     "Pakistan Floods 2023 (August), affecting over 33 million people",
     "Bangladesh Floods 2023 (June-July),  impacting over 7 million people",
     "South Africa Floods 2023 (April), displacing thousands and claiming over 400 lives. ",
@@ -58,17 +77,23 @@
     "Mozambique Floods 2023 (February-March)"
   ];
 
-    var map = L.map('map').setView([0, 0], 4);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+  for (var i = 0; i < floodLocations.length; i++) {
+    var marker = L.marker(floodLocations[i],{ icon: floodIcon }); // Create marker
+    marker.bindTooltip(placeNames[i]); // Bind tooltip to the marker
+    marker.addTo(map); // Add marker to the map
+  }
 
-    for (var i = 0; i < coordinates.length; i++) {
-      var marker = L.marker(coordinates[i]);
-      marker.bindTooltip(placeNames[i]); // Bind tooltip on hover
-      marker.addTo(map);
-    }
+  // Add landslide markers (optional)
+  var landslideLocations = [
+    [40.7128, -74.0060],  // Example coordinates
+    [34.0522, -118.2437],  // Example coordinates
+    // ... add remaining landslide coordinates
+  ];
+
+  for (var i = 0; i < landslideLocations.length; i++) {
+    L.marker(landslideLocations[i], { icon: landslideIcon }).addTo(map);
+  }
   </script>
 </body>
 </html>
